@@ -29,7 +29,7 @@ defmodule Markdown do
   """
   @spec to_html(doc :: String.t) :: String.t
   @spec to_html(doc :: String.t, options :: Keyword.t) :: String.t
-  def to_html(doc, options // [])
+  def to_html(doc, options \\ [])
 
   def to_html(_, _) do
     exit(:nif_library_not_loaded)
