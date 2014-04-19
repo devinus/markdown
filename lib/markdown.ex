@@ -12,7 +12,7 @@ defmodule Markdown do
     :ok = :erlang.load_nif(path, 0)
   end
 
-  @doc %S"""
+  @doc ~S"""
   Converts a Markdown document to HTML:
 
       iex> Markdown.to_html "# Hello World"

@@ -11,13 +11,13 @@ defmodule MarkdownTest do
     """
 
   	html = Markdown.to_html(markdown, tables: true)
-    assert html =~ %r/<table>/
+    assert html =~ ~r/<table>/
   end
 
   test :autolink do
   	markdown = "http://devintorr.es/"
   	html = Markdown.to_html(markdown, autolink: true)
-  	assert html =~ %r[<a href="http://devintorr.es/">]
+  	assert html =~ ~r[<a href="http://devintorr.es/">]
   end
 
   test :fenced_code do
@@ -28,6 +28,6 @@ defmodule MarkdownTest do
   	"""
 
   	html = Markdown.to_html(markdown, fenced_code: true)
-  	assert html =~ %r/<code>/
+  	assert html =~ ~r/<code>/
   end
 end
