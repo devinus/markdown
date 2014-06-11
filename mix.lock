@@ -1,1 +1,1 @@
-[ "hoedown": {:git, "git://github.com/hoedown/hoedown.git", "6938e267bd412ea4b0e39802bed95aefe6918d4f", []} ]
+%{"hoedown": {:git, "git://github.com/hoedown/hoedown.git", "cfea09a7f08ab6b2d4749ce43c20657c15e29111", []}}

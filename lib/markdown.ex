@@ -5,7 +5,7 @@ defmodule Markdown do
 
   @on_load { :init, 0 }
 
-  app = Mix.project[:app]
+  app = Mix.Project.config[:app]
 
   def init do
     path = :filename.join(:code.priv_dir(unquote(app)), 'markdown')
