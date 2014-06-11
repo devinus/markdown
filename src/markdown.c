@@ -4,7 +4,7 @@
 #include "erl_nif.h"
 
 #include "buffer.h"
-#include "markdown.h"
+#include "document.h"
 #include "html.h"
 
 #define OUTPUT_UNIT 128
@@ -30,7 +30,7 @@ to_html(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
   unsigned int extensions;
 
   hoedown_buffer* ob;
-  hoedown_markdown* markdown;
+  hoedown_document* document;
   hoedown_renderer* renderer;
 
   if (enif_inspect_binary(env, argv[0], &input) == 0) {
@@ -74,12 +74,12 @@ to_html(ErlNifEnv* env, int argc, const ERL_NIF_TERM argv[]) {
 
   ob = hoedown_buffer_new(OUTPUT_UNIT);
   renderer = hoedown_html_renderer_new(0, 0);
-  markdown = hoedown_markdown_new(extensions, 16, renderer);
-  hoedown_markdown_render(ob, (uint8_t*) input.data, input.size, markdown);
+  document = hoedown_document_new(renderer, extensions, 16);
+  hoedown_document_render(document, ob, (uint8_t*) input.data, input.size);
 
   enif_release_binary(&input);
   hoedown_html_renderer_free(renderer);
-  hoedown_markdown_free(markdown);
+  hoedown_document_free(document);
 
   enif_alloc_binary(ob->size, &output);
   memcpy(output.data, ob->data, ob->size);
