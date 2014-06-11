@@ -21,9 +21,11 @@ iex> Markdown.to_html "http://elixir-lang.org/", autolink: true
 
 ## TODO
 
-* Add more options to the NIF that are [available in Hoedown][3]
+* Use dirty schedulers [when available][3]
+* Add more options to the NIF that are [available in Hoedown][4]
 * ANSI renderer
 
 [1]: http://www.erlang.org/doc/tutorial/nif.html
 [2]: https://github.com/hoedown/hoedown
-[3]: https://github.com/craigbarnes/hoedown/blob/09cfaed19d037e82739f8336f8a7ceb5cbf1ce35/examples/hoedown.c#L17
+[3]: https://github.com/zambal/markdown/commit/792a414de074d96ac47b5b52d212b7197ce04462
+[4]: https://github.com/craigbarnes/hoedown/blob/09cfaed19d037e82739f8336f8a7ceb5cbf1ce35/examples/hoedown.c#L17
