@@ -11,7 +11,6 @@
 
 typedef struct {
   ERL_NIF_TERM atom_true;
-  ERL_NIF_TERM atom_false;
   ERL_NIF_TERM atom_tables;
   ERL_NIF_TERM atom_autolink;
   ERL_NIF_TERM atom_fenced_code;
@@ -100,7 +99,6 @@ load(ErlNifEnv* env, void** priv, ERL_NIF_TERM info) {
   }
 
   data->atom_true = enif_make_atom(env, "true");
-  data->atom_false = enif_make_atom(env, "false");
   data->atom_tables = enif_make_atom(env, "tables");
   data->atom_autolink = enif_make_atom(env, "autolink");
   data->atom_fenced_code = enif_make_atom(env, "fenced_code");
