@@ -29,11 +29,9 @@ markdown:
 
 priv/markdown.so: src/markdown.c
 	$(MAKE) -C $(HOEDOWN_PATH) libhoedown.a
-	cp $(HOEDOWN_PATH)/libhoedown.a priv/libhoedown.a
-	$(CC) $(CFLAGS) -shared $(LDFLAGS) -Lpriv -lhoedown -o $@ src/markdown.c
+	$(CC) $(CFLAGS) -shared $(LDFLAGS) -o $@ src/markdown.c $(HOEDOWN_PATH)/libhoedown.a
 
 clean:
 	$(MIX) clean
 	$(MAKE) -C $(HOEDOWN_PATH) clean
-	$(RM) priv/libhoedown.a
 	$(RM) priv/markdown.so
