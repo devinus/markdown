@@ -1,0 +1,61 @@
+!IF [where /Q Makefile.auto.win]
+# The file doesn't exist, so don't include it.
+!ELSE
+!INCLUDE Makefile.auto.win
+!ENDIF
+
+!IF [cmd /C IF NOT EXIST deps\hoedown EXIT 1]
+HOEDOWN_PATH = ..\hoedown
+!ELSE
+HOEDOWN_PATH = deps\hoedown
+!ENDIF
+
+NMAKE = nmake /$(MAKEFLAGS)
+MIX = mix
+CFLAGS = /O2 /EHsc /I"$(HOEDOWN_PATH)\src"
+
+all: markdown
+
+markdown:
+	$(MIX) compile
+
+Makefile.auto.win:
+	echo # Auto-generated as part of Makefile.win, do not modify. > $@
+	erl -eval "io:format(\"~s~n\", [lists:concat([\"ERTS_INCLUDE_PATH=\", code:root_dir(), \"/erts-\", erlang:system_info(version), \"/include\"])])" -s init stop -noshell >> $@
+
+HOEDOWN_SRC = \
+	$(HOEDOWN_PATH)\src\autolink.obj \
+	$(HOEDOWN_PATH)\src\buffer.obj \
+	$(HOEDOWN_PATH)\src\document.obj \
+	$(HOEDOWN_PATH)\src\escape.obj \
+	$(HOEDOWN_PATH)\src\html.obj \
+	$(HOEDOWN_PATH)\src\html_blocks.obj \
+	$(HOEDOWN_PATH)\src\html_smartypants.obj \
+	$(HOEDOWN_PATH)\src\stack.obj \
+	$(HOEDOWN_PATH)\src\version.obj
+
+hoedown.dll:
+	cd $(HOEDOWN_PATH)
+	$(NMAKE) /F Makefile.win hoedown.dll
+        cd $(MAKEDIR)
+
+!IFDEF ERTS_INCLUDE_PATH
+priv\markdown.dll: hoedown.dll
+	$(CC) $(CFLAGS) /I"$(ERTS_INCLUDE_PATH)" /LD /MD /Fe$@ $(HOEDOWN_SRC) src\markdown.c
+!ELSE
+priv\markdown.dll: Makefile.auto.win
+	$(NMAKE) /F Makefile.win priv\markdown.dll
+!ENDIF
+
+.c.obj:
+	$(CC) $(CFLAGS) /c $< /Fo$@
+
+.IGNORE:
+
+clean:
+	$(MIX) clean
+	cd $(HOEDOWN_PATH)
+	$(NMAKE) /F Makefile.win clean
+	cd $(MAKEDIR)
+	del /Q /F priv\markdown.dll priv\markdown.exp priv\markdown.lib markdown.obj
+	del /Q /F Makefile.auto.win

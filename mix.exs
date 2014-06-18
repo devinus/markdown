@@ -2,7 +2,11 @@ defmodule Mix.Tasks.Compile.Hoedown do
   @shortdoc "Compiles Hoedown"
 
   def run(_) do
-    Mix.shell.info System.cmd("make priv/markdown.so")
+    if match? {:win32, _}, :os.type do
+      Mix.shell.info System.cmd("nmake /F Makefile.win priv\\markdown.dll")
+    else
+      Mix.shell.info System.cmd("make priv/markdown.so")
+    end
   end
 end
 
