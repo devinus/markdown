@@ -1,4 +1,5 @@
 MIX = mix
+MV = mv
 CFLAGS = -g -O3 -ansi -pedantic -Wall -Wextra -Wno-unused-parameter
 
 ERLANG_PATH = $(shell erl -eval 'io:format("~s", [lists:concat([code:root_dir(), "/erts-", erlang:system_info(version), "/include"])])' -s init stop -noshell)
@@ -29,10 +30,11 @@ markdown:
 
 priv/markdown.so: src/markdown.c
 	$(MAKE) -C $(HOEDOWN_PATH) libhoedown.a
-	$(CC) $(CFLAGS) -shared $(LDFLAGS) -L$(HOEDOWN_PATH) -lhoedown -o $@ src/markdown.c
+	$(MV) $(HOEDOWN_PATH)/libhoedown.a priv/libhoedown.a
+	$(CC) $(CFLAGS) -shared $(LDFLAGS) -Lpriv -lhoedown -o $@ src/markdown.c
 
 clean:
 	$(MIX) clean
 	$(MAKE) -C $(HOEDOWN_PATH) clean
-	$(RM) $(HOEDOWN_PATH)/libhoedown.a
+	$(RM) priv/libhoedown.a
 	$(RM) priv/markdown.so
