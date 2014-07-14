@@ -20,7 +20,7 @@ defmodule Markdown.Mixfile do
   def project do
     [ app: :markdown,
       version: @version,
-      elixir: "~> 0.14.0",
+      elixir: "~> 0.14.3",
       compilers: [:hoedown, :elixir, :app],
       deps: deps ]
   end
