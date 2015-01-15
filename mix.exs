@@ -9,6 +9,8 @@ defmodule Mix.Tasks.Compile.Hoedown do
       {result, _error_code} = System.cmd("make", ["priv/markdown.so"], stderr_to_stdout: true)
       Mix.shell.info result
     end
+    
+    :ok
   end
 end
 
