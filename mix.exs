@@ -1,6 +1,4 @@
 defmodule Mix.Tasks.Compile.Hoedown do
-  @shortdoc "Compiles Hoedown"
-
   def run(_) do
     if match? {:win32, _}, :os.type do
       {result, _error_code} = System.cmd("nmake", ["/F", "Makefile.win", "priv\\markdown.dll"], stderr_to_stdout: true)
@@ -9,7 +7,6 @@ defmodule Mix.Tasks.Compile.Hoedown do
       {result, _error_code} = System.cmd("make", ["priv/markdown.so"], stderr_to_stdout: true)
       IO.binwrite result
     end
-    
     :ok
   end
 end
@@ -17,7 +14,7 @@ end
 defmodule Markdown.Mixfile do
   use Mix.Project
 
-  @version String.strip(File.read!("VERSION"))
+  @version "0.1.0"
 
   def project do
     [app: :markdown,
