@@ -25,6 +25,20 @@ defmodule Markdown do
   * `:tables` - Enables Markdown Extra style tables (default: `false`)
   * `:fenced_code` - Enables fenced code blocks (default: `false`)
   * `:autolink` - Automatically turn URLs into links (default: `false`)
+  * `:strikethrough` - Parse ~~stikethrough~~ spans (default: `false`)
+  * `:underline` - Parse _underline_ instead of emphasis (default: `false`)
+  * `:highlight` - Parse ==highlight== spans (default: `false`)
+  * `:quote` - Render \"quotes\" as <q>quotes</q> (default: `false`)
+  * `:superscript` - Parse super^script (default: `false`)
+  * `:math` - Parse TeX $$math$$ syntax, Kramdown style (default: `false`)
+  * `:no_intra_emphasis` - Disable emphasis_between_words (default: `false`)
+  * `:space_headers` - Require a space after '#' in headers (default: `false`)
+  * `:math_explicit` - Instead of guessing by context, parse $inline math$ and $$always block math$$ (requires `math: true`) (default: `false`)
+  * `:disable_indented_code` - Don't parse indented code blocks (default: `false`)
+  * `:skip_html` - Strip all HTML tags (default: `false`)
+  * `:escape` - Escape all HTML (default: `false`)
+  * `:hard_wrap` - Render each linebreak as <br> (default: `false`)
+  * `:use_xhtml` - Render XHTML (default: `false`)
 
   """
   @spec to_html(doc :: String.t) :: String.t
